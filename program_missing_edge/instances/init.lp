@@ -1,23 +1,19 @@
-agent(0..17).
-init_loc(0, ryend).
-init_loc(1, ryend).
-init_loc(2, lga).
-init_loc(3, cri).
-init_loc(4, lga).
-init_loc(5, lga).
-init_loc(6, lga).
+agent(1..15).
+init_loc(1, cri).
+init_loc(2, jfk).
+init_loc(3, ryend).
+init_loc(4, ryend).
+init_loc(5, cri).
+init_loc(6, jfk).
 init_loc(7, lga).
-init_loc(8, dandy).
-init_loc(9, jfk).
-init_loc(10, teb).
-init_loc(11, cimbl).
-init_loc(12, ryend).
-init_loc(13, cri).
-init_loc(14, cimbl).
-init_loc(15, cimbl).
-init_loc(16, cri).
-init_loc(17, jfk).
-emax(0, 60).
+init_loc(8, ryend).
+init_loc(9, dandy).
+init_loc(10, ryend).
+init_loc(11, dandy).
+init_loc(12, teb).
+init_loc(13, cimbl).
+init_loc(14, dandy).
+init_loc(15, lga).
 emax(1, 60).
 emax(2, 60).
 emax(3, 60).
@@ -33,9 +29,6 @@ emax(12, 60).
 emax(13, 60).
 emax(14, 60).
 emax(15, 60).
-emax(16, 60).
-emax(17, 60).
-emin(0, 0).
 emin(1, 0).
 emin(2, 0).
 emin(3, 0).
@@ -51,9 +44,6 @@ emin(12, 0).
 emin(13, 0).
 emin(14, 0).
 emin(15, 0).
-emin(16, 0).
-emin(17, 0).
-dischg_rate(0, 4).
 dischg_rate(1, 4).
 dischg_rate(2, 4).
 dischg_rate(3, 4).
@@ -69,9 +59,6 @@ dischg_rate(12, 4).
 dischg_rate(13, 4).
 dischg_rate(14, 4).
 dischg_rate(15, 4).
-dischg_rate(16, 4).
-dischg_rate(17, 4).
-capacity(0, 4).
 capacity(1, 4).
 capacity(2, 4).
 capacity(3, 4).
@@ -87,9 +74,6 @@ capacity(12, 4).
 capacity(13, 4).
 capacity(14, 4).
 capacity(15, 4).
-capacity(16, 4).
-capacity(17, 4).
-b_init(0, 60).
 b_init(1, 60).
 b_init(2, 60).
 b_init(3, 60).
@@ -105,5 +89,3 @@ b_init(12, 60).
 b_init(13, 60).
 b_init(14, 60).
 b_init(15, 60).
-b_init(16, 60).
-b_init(17, 60).

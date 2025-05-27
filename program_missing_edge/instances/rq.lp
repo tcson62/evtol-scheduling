@@ -1,43 +1,122 @@
-%[[0, 12, 12, 6, 19, 5, 7], [7, 0, 4, 24, 2, 8, 23], [12, 16, 0, 21, 22, 17, 2], [30, 19, 15, 0, 6, 13, 23], [19, 18, 6, 25, 0, 28, 25], [11, 26, 12, 27, 21, 0, 6], [4, 14, 21, 5, 27, 18, 0]]%request(ID, (edge), number of request passenger)
-request(0, (lga, jfk), 7).
-request(1, (teb, jfk), 12).
-request(2, (ryend, jfk), 30).
-request(3, (cri, jfk), 19).
-request(4, (cimbl, jfk), 11).
-request(5, (dandy, jfk), 4).
-request(6, (jfk, lga), 12).
-request(7, (teb, lga), 16).
-request(8, (ryend, lga), 19).
-request(9, (cri, lga), 18).
-request(10, (cimbl, lga), 26).
-request(11, (dandy, lga), 14).
-request(12, (jfk, teb), 12).
-request(13, (lga, teb), 4).
-request(14, (ryend, teb), 15).
-request(15, (cri, teb), 6).
-request(16, (cimbl, teb), 12).
-request(17, (dandy, teb), 21).
-request(18, (jfk, ryend), 6).
-request(19, (lga, ryend), 24).
-request(20, (teb, ryend), 21).
-request(21, (cri, ryend), 25).
-request(22, (cimbl, ryend), 27).
-request(23, (dandy, ryend), 5).
-request(24, (jfk, cri), 19).
-request(25, (lga, cri), 2).
-request(26, (teb, cri), 22).
-request(27, (ryend, cri), 6).
-request(28, (cimbl, cri), 21).
-request(29, (dandy, cri), 27).
-request(30, (jfk, cimbl), 5).
-request(31, (lga, cimbl), 8).
-request(32, (teb, cimbl), 17).
-request(33, (ryend, cimbl), 13).
-request(34, (cri, cimbl), 28).
-request(35, (dandy, cimbl), 18).
-request(36, (jfk, dandy), 7).
-request(37, (lga, dandy), 23).
-request(38, (teb, dandy), 2).
-request(39, (ryend, dandy), 23).
-request(40, (cri, dandy), 25).
-request(41, (cimbl, dandy), 6).
+%[[0, 4, 0, 3, 3, 4, 0], [1, 0, 3, 6, 3, 6, 2], [5, 6, 0, 1, 0, 4, 3], [2, 0, 1, 0, 5, 2, 0], [3, 6, 1, 4, 0, 2, 3], [3, 2, 6, 5, 2, 0, 3], [1, 5, 2, 5, 2, 1, 0]] 
+%customer(ID, loc, des)
+customer(1, lga, jfk).
+customer(2, teb, jfk).
+customer(3, teb, jfk).
+customer(4, teb, jfk).
+customer(5, teb, jfk).
+customer(6, teb, jfk).
+customer(7, ryend, jfk).
+customer(8, ryend, jfk).
+customer(9, cri, jfk).
+customer(10, cri, jfk).
+customer(11, cri, jfk).
+customer(12, cimbl, jfk).
+customer(13, cimbl, jfk).
+customer(14, cimbl, jfk).
+customer(15, dandy, jfk).
+customer(16, jfk, lga).
+customer(17, jfk, lga).
+customer(18, jfk, lga).
+customer(19, jfk, lga).
+customer(20, teb, lga).
+customer(21, teb, lga).
+customer(22, teb, lga).
+customer(23, teb, lga).
+customer(24, teb, lga).
+customer(25, teb, lga).
+customer(26, cri, lga).
+customer(27, cri, lga).
+customer(28, cri, lga).
+customer(29, cri, lga).
+customer(30, cri, lga).
+customer(31, cri, lga).
+customer(32, cimbl, lga).
+customer(33, cimbl, lga).
+customer(34, dandy, lga).
+customer(35, dandy, lga).
+customer(36, dandy, lga).
+customer(37, dandy, lga).
+customer(38, dandy, lga).
+customer(39, lga, teb).
+customer(40, lga, teb).
+customer(41, lga, teb).
+customer(42, ryend, teb).
+customer(43, cri, teb).
+customer(44, cimbl, teb).
+customer(45, cimbl, teb).
+customer(46, cimbl, teb).
+customer(47, cimbl, teb).
+customer(48, cimbl, teb).
+customer(49, cimbl, teb).
+customer(50, dandy, teb).
+customer(51, dandy, teb).
+customer(52, jfk, ryend).
+customer(53, jfk, ryend).
+customer(54, jfk, ryend).
+customer(55, lga, ryend).
+customer(56, lga, ryend).
+customer(57, lga, ryend).
+customer(58, lga, ryend).
+customer(59, lga, ryend).
+customer(60, lga, ryend).
+customer(61, teb, ryend).
+customer(62, cri, ryend).
+customer(63, cri, ryend).
+customer(64, cri, ryend).
+customer(65, cri, ryend).
+customer(66, cimbl, ryend).
+customer(67, cimbl, ryend).
+customer(68, cimbl, ryend).
+customer(69, cimbl, ryend).
+customer(70, cimbl, ryend).
+customer(71, dandy, ryend).
+customer(72, dandy, ryend).
+customer(73, dandy, ryend).
+customer(74, dandy, ryend).
+customer(75, dandy, ryend).
+customer(76, jfk, cri).
+customer(77, jfk, cri).
+customer(78, jfk, cri).
+customer(79, lga, cri).
+customer(80, lga, cri).
+customer(81, lga, cri).
+customer(82, ryend, cri).
+customer(83, ryend, cri).
+customer(84, ryend, cri).
+customer(85, ryend, cri).
+customer(86, ryend, cri).
+customer(87, cimbl, cri).
+customer(88, cimbl, cri).
+customer(89, dandy, cri).
+customer(90, dandy, cri).
+customer(91, jfk, cimbl).
+customer(92, jfk, cimbl).
+customer(93, jfk, cimbl).
+customer(94, jfk, cimbl).
+customer(95, lga, cimbl).
+customer(96, lga, cimbl).
+customer(97, lga, cimbl).
+customer(98, lga, cimbl).
+customer(99, lga, cimbl).
+customer(100, lga, cimbl).
+customer(101, teb, cimbl).
+customer(102, teb, cimbl).
+customer(103, teb, cimbl).
+customer(104, teb, cimbl).
+customer(105, ryend, cimbl).
+customer(106, ryend, cimbl).
+customer(107, cri, cimbl).
+customer(108, cri, cimbl).
+customer(109, dandy, cimbl).
+customer(110, lga, dandy).
+customer(111, lga, dandy).
+customer(112, teb, dandy).
+customer(113, teb, dandy).
+customer(114, teb, dandy).
+customer(115, cri, dandy).
+customer(116, cri, dandy).
+customer(117, cri, dandy).
+customer(118, cimbl, dandy).
+customer(119, cimbl, dandy).
+customer(120, cimbl, dandy).

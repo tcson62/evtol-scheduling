@@ -1,0 +1,18 @@
+May 15:
+- make solution fit with many???
+- I dont get it
+- projecting charging demand
+- input: trip request, flight time, battery required
+	what is synergy?
+- output: generate plan, then generate battery demand
+- discuss to get energy demand
+	as low as possible
+	serve everyone
+	minimize max span
+
+- is my research that I'm about to do in the scope? it does not feel like it is in the scope
+- Duong is also like that I believe
+
+- 1:30-2:30 CST, on Wed, Meeting
+
+

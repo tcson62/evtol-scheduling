@@ -8,13 +8,38 @@ import numpy as np
 import toolbox
 
 
+# run randomizer==========================================================================
+#   map randomizer:
+map = toolbox.preprocess_map(seed=10, rate=80)
+
+# print(map)
+
+#   rq randomizer:
+rq = toolbox.GenRq_missing_edge(cust=7, random_flag=1, seed=10)
+
+# print(rq)
+
+#   agent randomizer:
+agent = toolbox.InitLoc_missing_edge(nAgents=15, seed=10, limit_nAgents_each_vertiport=10)
+
+# print(agent)
+
+with open("instances/instances.lp", "w") as f:
+    f.write(map)
+    f.write(rq)
+    f.write(agent)
+
+print("done generating")
+# run main script==========================================================================
 clingo_request = ["clingo"
                 , "test_missing_edge.lp"                   
+                , "instances/instances.lp"
                 , "--outf=1"       
                 ]
 
 process = subprocess.run(clingo_request, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True).stdout
 raw_data = process[process.index("ANSWER")+7:].split()
+print(raw_data)
 data = raw_data[:raw_data.index("%")]
 
 input_data = []
