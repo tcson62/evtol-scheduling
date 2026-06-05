@@ -1,22 +1,78 @@
-time(1..266). 
+#include "../instances/network_NY.lp".
+#include "../instances/init.lp".
+#include "../instances/rq.lp".
 
-#const max_seg=24. 
+% edge((V,V')) :- out(_,(V,V'),_,_).
 
-#const throughput=5. 
+numberOfFlights((V,V'), Out) :- 
+    edge((V,V')), 
+    Out = #count{D,T : out(D,(V,V'),_,T)}, Out > 8.
 
-segment(0..max_seg).
+keep(out(D,(V,V'),S,T)) :- out(D,(V,V'),S,T), T < 180.
+keep(in(D,(V,V'),S,T)) :- in(D,(V,V'),S,T), T < 180.
 
-moving(D, T):- segment(T), T > 0, 
-    next(D, T-1, L'), next(D, T, L), L != L'.
+%%%  schedule_start(D, (L, L'), T+CT) for T >= arrival(D, L, S, T), next(D, S-1, L) 
+%%%  schedule_arrival(D, (L, L'), T') =   
 
-bad(V, T, In + Out) :- time(T), vertiport(V), 
-    In = #count{D : arrival(D, V, S, T'), T <= T', T' <= T+15, moving(D, S)}, 
-    Out = #count{D : start(D, V, S, T'), T <= T', T' <= T+15, moving(D, S)}, 
-    In + Out > throughput. 
 
-inbad(arrival(D, jfk, S, T'), jfk, S, 1) :-  arrival(D, jfk, S, T'), 1 <= T', T' <= 16, moving(D, S).
-inbad(start(D, jfk, S, T'), jfk, S, 1) :-   start(D, jfk, S, T'), 1 <= T', T' <= 16, moving(D, S).
+% 2 {
+% arrival(D, L, T, Y); start(D, L, T, Y) 
+% } :- segment(T), next(D, T-1, L), next(D, T, L),  
+%      start(D, L, T-1, Y).
 
-#show inbad/4. 
+%%%%%%% checking for throughout 
+
+%% maxArrival(M) :- M = #max{AT : arrival(_, _, _, AT)}.
+
+% timeCheck(1..M) :-  M = #max{AT : arrival(_, _, _, AT)}.
+
+% violate(T, V, Total) :- timeCheck(T), T>= 16, vertiport(V), 
+%     In = #count{D : arrival(D, V, S, AT), moving(D, S), T-15 <= AT, AT <= T}, 
+%     Out = #count{D : start(D, V, S, AT), moving(D, S), T-15 <= AT, AT <= T}, 
+%     Total = In + Out, 
+%     Total > 5. 
+
+% in(arrival(D, jfk, S, AT)) :- arrival(D, jfk, S, AT), moving(D, S-1), AT <= 16, 1<= AT.      
+% in(start(D, jfk, S, AT)) :- start(D, jfk, S, AT), moving(D, S-1), AT <= 16, 1<= AT.   
+
+% timeLine(T, D, V, arrival) :- vertiport(V), arrival(D, V, _, T). 
+% timeLine(T, D, V, start) :- vertiport(V), start(D, V, _, T). 
+% %%%%%
+
+% V1 xxxx5xxxx1xxxx5    x starts at z and breaks the constrants on line V1
+%                       because start    .....  
+%                       because arrival 
+%                       because start & arrival 
+%                       x starts at z and breaks the constrants on line V2 
+% V2 xxxx5xxxx1xxxx5
+
+
+%%% order(start(D, V)):- vertiport(V), start(D, V, _, T).
+
+
+
+% #show. 
+% #show in/1. 
+
+% % start(D, L, T, Y + CT) :- segment(T), next(D, T-1, L), next(D, T, L'), charge_time((L, L'), CT), arrival(D, L, T-1, Y).
+
+% % arrival(D, L, T, Y) :- segment(T), not moving(D, T), next(D, T-1, L), start(D, L, T-1, Y).
+
+% % start(D, L, T, Y) :- segment(T), not moving(D, T), next(D, T-1, L), start(D, L, T-1, Y).
+
+% % start(D, L', T+1, A + CT):- segment(T), T> 0, charge_time((L,L'),CT), flight(D,E',T), pt(arrival(D, E, T), A).
+
+% flight(D, (L, L'), T-1) :- segment(T), T > 0, next(D, T-1, L), next(D, T, L'). 
+
+% &diff {start(D,E,0) - 0} <= 0 :- flight(D, E, 0).
+
+% &diff {start(D,E,X) - arrival(D,E,X)} <= -FT :- segment(X), flight_time(E,FT), flight(D,E,X).
+
+% &diff {arrival(D,E,X) - start(D,E',X1)} <= -CT :- segment(X), charge_time(E',CT), flight(D,E,X), flight(D,E',X+1), X1=X+1.
+
+% &diff {arrival(D,E,M)} <= horizon :- flight(D,E,M), max_seg(D,M).
+
+% #const horizon=500. 
+ 
 
 % #show bad/3. 
