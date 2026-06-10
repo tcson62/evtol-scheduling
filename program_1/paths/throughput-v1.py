@@ -213,47 +213,6 @@ def polish(legs, k, w):
     return moves
 
 
-def drop_over_horizon(legs, k, w, horizon, do_polish=True):
-    """Drop flights that cannot fit within `horizon`, mirroring an exact
-    solver's choice to leave some requests unserved rather than overrun time.
-
-    Run this AFTER polish: polish has already pulled every leg as early as
-    legal, so a leg still arriving after the horizon genuinely does not fit.
-
-    With do_polish=True, each iteration drops the single worst offender (the
-    drone whose latest leg arrives last) — its chain from the first over-horizon
-    leg onward, which is a tail since per-drone arrivals are monotonic in seq —
-    then re-polishes. Re-polishing frees the dropped drone's vertiport slots,
-    which can pull other near-horizon legs back under the line, so we drop as
-    few flights as possible.
-
-    With do_polish=False (e.g. --no-polish), every over-horizon tail is removed
-    in a single pass with no re-compaction.
-
-    Returns the list of dropped legs (mutates `legs` in place).
-    """
-    dropped = []
-    if not do_polish:
-        for L in [L for L in legs if L['t_in'] > horizon]:
-            legs.remove(L)
-            dropped.append(L)
-        return dropped
-
-    while True:
-        over = [L for L in legs if L['t_in'] > horizon]
-        if not over:
-            break
-        d = max(over, key=lambda L: L['t_in'])['drone']
-        first_over = min(L['seq'] for L in legs
-                         if L['drone'] == d and L['t_in'] > horizon)
-        for L in [L for L in legs
-                  if L['drone'] == d and L['seq'] >= first_over]:
-            legs.remove(L)
-            dropped.append(L)
-        polish(legs, k, w)
-    return dropped
-
-
 def makespan(legs):
     return max(L['t_in'] for L in legs) if legs else 0
 
@@ -423,9 +382,6 @@ def main():
                    help='also render a PNG before/after plot of --show-vertex to FILE')
     p.add_argument('--no-polish', action='store_true',
                    help='skip the back-shift polish pass (faster but worse makespan)')
-    p.add_argument('--horizon', type=int, default=180,
-                   help='drop flights arriving after this time instead of '
-                        'overrunning it; <=0 disables dropping')
     args = p.parse_args()
 
     nexts, starts, arrivals = parse_facts(args.input)
@@ -454,25 +410,11 @@ def main():
             print(f"polish : applied {pulls} back-shifts  "
                   f"makespan {ms1} -> {ms2}")
 
-        if args.horizon and args.horizon > 0:
-            n_before = len(legs)
-            dropped = drop_over_horizon(legs, args.k, args.w, args.horizon,
-                                        do_polish=not args.no_polish)
-            from collections import Counter
-            per_drone = Counter(L['drone'] for L in dropped)
-            print(f"horizon: dropped {len(dropped)} of {n_before} legs "
-                  f"(arrive > {args.horizon}) across {len(per_drone)} drones; "
-                  f"{len(legs)} served; makespan -> {makespan(legs)}")
-
         print_first_legs(legs, n=2, label='after')
 
         ok1, worst1, v1, t1 = verify(legs, args.k, args.w)
         status = 'OK' if ok1 else 'STILL VIOLATING'
-        ms_final = makespan(legs)
-        hz_ok = (not args.horizon or args.horizon <= 0) or (ms_final <= args.horizon)
-        hz_note = '' if not args.horizon or args.horizon <= 0 else (
-            f"; makespan {ms_final} {'<=' if hz_ok else '>'} horizon {args.horizon}")
-        print(f"after : max window count = {worst1} [{status}]{hz_note}")
+        print(f"after : max window count = {worst1} [{status}]")
         display_vertex_schedule(legs, display_v, args.k, args.w, label='after')
 
         if args.plot:

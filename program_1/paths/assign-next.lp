@@ -1,6 +1,11 @@
-#include "../instances/network_NY.lp".
-#include "../instances/init.lp".
-#include "../instances/rq.lp".
+% %% clingo assign-next.lp time.lp --out-ifs=\\n --outf=0 -V0 --out-atomf=%s.
+% --quiet=1,2,2 > time-shecudle.lp 
+
+% #include "../instances/network_NY.lp".
+% #include "../instances/init.lp".
+% #include "../instances/rq.lp".
+
+#include "../instances/network-ny_0_pax840_dirA2_dem3_init2_agent22_seg10_horizon180.lp".
 
 % ----- TIME SCHEDULE WITH DIFFERENT CONSTRAINT
 % start time at initial vertiport = charge duration
